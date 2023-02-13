@@ -9,25 +9,30 @@ public class MyFirstProgram {
     hello("world");
     hello("Polina");
 
-    double l = 5;
-    System.out.println("Площадь квадрата со стороной " + l + " = " + area(l));
-    double a = 4;
-    double b = 6;
-    System.out.println("Площадь прямоугольника со сторонами " + a + " см и " + b + "см = " + area(a, b) + "см");
+    Squre s = new Squre(5);
+    System.out.println("Площадь квадрата со стороной " + s.l + " = " + s.area());
+
+    Rectangle r = new Rectangle(4, 6);
+    System.out.println("Площадь прямоугольника со сторонами " + r.a + " см и " + r.b + "см = " + r.area() + "см");
+
+    //Point P1 = new Point(1,2);
+    Point P2 = new Point(4, 5);
+    Point p = new Point(1, 2);
+    System.out.println("Длина отрезка от точки А(" + p.x + ", " + p.y + ") до точки B(" + P2.x + ", " + P2.y + ") = " + p.distanceToAnotherPoint(P2));
 
   }
 
+  /*public static double distance(Point P1, Point P2)
+  {
+    double s = (P2.x - P1.x)*(P2.x - P1.x) + (P2.y - P1.y)*(P2.y - P1.y);
+    double res = Math.sqrt(s);
+    return res;
+  };*/
 
   public static void hello(String somebody) {
 
     System.out.println("Hello " + somebody + "!");
   }
 
-  public static double area(double len) {
-    return len * len;
-  }
 
-  public static double area(double a, double b) {
-    return a * b;
-  }
 }
