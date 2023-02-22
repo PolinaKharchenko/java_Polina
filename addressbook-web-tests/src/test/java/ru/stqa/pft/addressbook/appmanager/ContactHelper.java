@@ -28,4 +28,11 @@ public void findElement() {
    click(By.id("1"));
   }
 
+  public void initContactModification() {
+    click(By.xpath("//img[@alt='Edit']"));
+  }
+
+  public void submitContactModification() {
+    click(By.name("update"));
+  }
 }
