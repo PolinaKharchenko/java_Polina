@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import jdk.jfr.consumer.EventStream;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
@@ -17,9 +18,12 @@ public class HelperBase {
 
   protected void type(By locator, String text) {
     click(locator);
-    if (text != null)  {
-      wd.findElement(locator).clear();
-      wd.findElement(locator).sendKeys(text);
+    if (text != null) {
+      String ExistingText = wd.findElement(locator).getAttribute("value");
+      if (!text.equals(ExistingText)) {
+        wd.findElement(locator).clear();
+        wd.findElement(locator).sendKeys(text);
+      }
     }
   }
 
