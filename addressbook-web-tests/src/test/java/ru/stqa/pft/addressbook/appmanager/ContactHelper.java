@@ -44,4 +44,8 @@ public void findElement() {
   public void submitContactModification() {
     click(By.name("update"));
   }
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.name("selected[]"));
+  }
 }
