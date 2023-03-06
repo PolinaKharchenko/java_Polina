@@ -49,4 +49,6 @@ public void findElement() {
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
+
+
 }
