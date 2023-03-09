@@ -2,9 +2,12 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -51,4 +54,8 @@ public void findElement() {
   }
 
 
+  public String text() {
+      String a = wd.findElement(By.cssSelector("span.group")).getText();
+      return a;
+  }
 }
