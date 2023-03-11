@@ -2,12 +2,9 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
-
-import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -37,8 +34,8 @@ public class ContactHelper extends HelperBase {
     wd.switchTo().alert().accept();
   }
 
-public void findElement() {
-   click(By.name("selected[]"));
+public void selectElement(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void initContactModification() {

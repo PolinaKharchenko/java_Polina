@@ -23,7 +23,7 @@ public class ContactModificationTest extends TestBase{
         app.getContactHelper().fillContactForm(new ContactData("Polina", "Kharchenko", "Polly", "+71111111111", "polly@mail.ru", "test3"), true);}
 
     app.getNavigationHelper().gotoHome();
-    app.getContactHelper().findElement();
+    app.getContactHelper().selectElement(beforeCont - 1);
     app.getContactHelper().initContactModification();
     app.getContactHelper().fillContactForm(new ContactData("Dima", "Kharchenko", "Dim", "+71111111111", "polly@mail.ru", null), false);
     app.getContactHelper().submitContactModification();
