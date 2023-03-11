@@ -58,4 +58,8 @@ public void findElement() {
       String a = wd.findElement(By.cssSelector("span.group")).getText();
       return a;
   }
+
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size();
+  }
 }
