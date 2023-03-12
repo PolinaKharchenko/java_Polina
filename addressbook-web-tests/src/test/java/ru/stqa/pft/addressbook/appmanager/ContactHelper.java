@@ -66,11 +66,14 @@ public void selectElement(int index) {
 
    public List<ContactData> getContactList() {
     List<ContactData> contacts = new ArrayList<ContactData>();
-    List<WebElement> elements = wd.findElements(By.name("selected[]"));
+       List<WebElement> elements = wd.findElements(By.name("entry"));
     for(WebElement element: elements)
     {
-      String name = element.getText();
-      ContactData contact = new ContactData(name, null,null, null,null,null);
+      String lastName = String.valueOf(element.findElement(By.xpath(".//td[2]")).getText());
+      String firstName = String.valueOf(element.findElement(By.xpath(".//td[3]")).getText());
+      String id = element.findElement(By.tagName("input")).getAttribute("value");
+      System.out.println(id);
+      ContactData contact = new ContactData(id, firstName, lastName,null, null,null,null);
       contacts.add(contact);
     }
     return contacts;
