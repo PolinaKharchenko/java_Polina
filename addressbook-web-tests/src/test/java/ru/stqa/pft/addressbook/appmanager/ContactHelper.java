@@ -64,9 +64,9 @@ public void selectElement(int index) {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  /* public List<ContactData> getContactList() {
+   public List<ContactData> getContactList() {
     List<ContactData> contacts = new ArrayList<ContactData>();
-    List<WebElement> elements = wd.findElements(By.cssSelector("td.center"));
+    List<WebElement> elements = wd.findElements(By.name("selected[]"));
     for(WebElement element: elements)
     {
       String name = element.getText();
@@ -74,5 +74,5 @@ public void selectElement(int index) {
       contacts.add(contact);
     }
     return contacts;
-  }*/
+  }
 }

@@ -5,13 +5,13 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
+import java.util.List;
+
 public class ContactDeletionTests extends TestBase{
 
   @Test
   public void testContactDeletion() throws Exception {
-
-   app.getNavigationHelper().gotoHome();
-    int beforeCont = app.getContactHelper().getContactCount();
+      app.getNavigationHelper().gotoHome();
     if(! app.getContactHelper().isThereAContact()) {
       app.getNavigationHelper().goToGroupPage();
       if(! app.getGroupHelper().isThereAGroup()) {
@@ -20,12 +20,13 @@ public class ContactDeletionTests extends TestBase{
       app.getNavigationHelper().gotoNewContact();
       app.getContactHelper().fillContactForm(new ContactData("Polina", "Kharchenko", "Polly", "+71111111111", "polly@mail.ru", "test3"), true);
     }
-    app.getNavigationHelper().gotoHome();
-    app.getContactHelper().selectElement(beforeCont - 1);
+      app.getNavigationHelper().gotoHome();
+    List<ContactData> beforeCont = app.getContactHelper().getContactList();
+    app.getContactHelper().selectElement( beforeCont.size()-1);
     app.getContactHelper().deleteCreateContact();
     app.getNavigationHelper().gotoHome();
-    int afterCont = app.getContactHelper().getContactCount();
-    Assert.assertEquals(beforeCont, afterCont+1);
+        List<ContactData> afterCont = app.getContactHelper().getContactList();
+    Assert.assertEquals(beforeCont.size(), afterCont.size()+1);
   }
 
 

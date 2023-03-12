@@ -15,9 +15,8 @@ public class ContactCreationTests extends TestBase {
    @Test
   public void testContactCreation() throws Exception {
        app.getNavigationHelper().gotoHome();
-  //     List<ContactData> beforeCont = app.getContactHelper().getContactList();
-       int beforeCont = app.getContactHelper().getContactCount();
-       app.getNavigationHelper().goToGroupPage();
+     List<ContactData> beforeCont = app.getContactHelper().getContactList();
+    app.getNavigationHelper().goToGroupPage();
     if(! app.getGroupHelper().isThereAGroup()) {
         app.getGroupHelper().createGroup(new GroupData("test3", "test4", "test5"));
     }
@@ -26,10 +25,8 @@ public class ContactCreationTests extends TestBase {
     app.getNavigationHelper().gotoNewContact();
     app.getContactHelper().fillContactForm(new ContactData("Polina", "Kharchenko", "Polly", "+71111111111", "polly@mail.ru", a), true);
        app.getNavigationHelper().gotoHome();
-    //   List<ContactData> afterCont = app.getContactHelper().getContactList();
-       int afterCont = app.getContactHelper().getContactCount();
-       Assert.assertEquals(beforeCont, afterCont-1);
-    //   Assert.assertEquals(beforeCont.size(), afterCont.size()-1);
+      List<ContactData> afterCont = app.getContactHelper().getContactList();
+       Assert.assertEquals(beforeCont.size(), afterCont.size()-1);
    }
 
 

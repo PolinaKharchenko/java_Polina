@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
+import java.util.List;
+
 public class ContactModificationTest extends TestBase{
 
   @Test
@@ -12,8 +14,7 @@ public class ContactModificationTest extends TestBase{
   public void testContactModification(){
 
     app.getNavigationHelper().gotoHome();
-      int beforeCont = app.getContactHelper().getContactCount();
-    if(! app.getContactHelper().isThereAContact())
+      if(! app.getContactHelper().isThereAContact())
     {   app.getNavigationHelper().goToGroupPage();
         if(! app.getGroupHelper().isThereAGroup())
     {
@@ -21,15 +22,15 @@ public class ContactModificationTest extends TestBase{
 
         app.getNavigationHelper().gotoNewContact();
         app.getContactHelper().fillContactForm(new ContactData("Polina", "Kharchenko", "Polly", "+71111111111", "polly@mail.ru", "test3"), true);}
-
     app.getNavigationHelper().gotoHome();
-    app.getContactHelper().selectElement(beforeCont - 1);
+    List<ContactData> beforeCont = app.getContactHelper().getContactList();
+    app.getContactHelper().selectElement(beforeCont.size() - 1);
     app.getContactHelper().initContactModification();
     app.getContactHelper().fillContactForm(new ContactData("Dima", "Kharchenko", "Dim", "+71111111111", "polly@mail.ru", null), false);
     app.getContactHelper().submitContactModification();
     app.getNavigationHelper().gotoHome();
-      int afterCont = app.getContactHelper().getContactCount();
-      Assert.assertEquals(beforeCont, afterCont);
+    List<ContactData> afterCont = app.getContactHelper().getContactList();
+    Assert.assertEquals(beforeCont.size(), afterCont.size());
   }
 
 }
