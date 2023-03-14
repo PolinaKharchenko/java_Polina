@@ -42,8 +42,8 @@ public void selectElement(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
-  public void initContactModification() {
-    click(By.xpath("//img[@alt='Edit']"));
+  public void initContactModification(int i) {
+   wd.findElements(By.xpath("//img[@alt='Edit']")).get(i).click();
   }
 
   public void submitContactModification() {
@@ -71,7 +71,7 @@ public void selectElement(int index) {
     {
       String lastName = String.valueOf(element.findElement(By.xpath(".//td[2]")).getText());
       String firstName = String.valueOf(element.findElement(By.xpath(".//td[3]")).getText());
-      String id = element.findElement(By.tagName("input")).getAttribute("value");
+      Integer id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       System.out.println(id);
       ContactData contact = new ContactData(id, firstName, lastName,null, null,null,null);
       contacts.add(contact);

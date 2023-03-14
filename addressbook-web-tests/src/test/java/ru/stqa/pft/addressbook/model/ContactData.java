@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class ContactData {
 
-    private final String id;
+    private int id;
     private final String name;
     private final String lastName;
     private final String nickName;
@@ -13,11 +13,11 @@ public class ContactData {
     private final String email;
     private String group;
 
- public String getId() {
+ public int getId() {
        return id;
   }
 
-    public ContactData(String id, String name, String lastName, String nickName, String telephone, String email, String group) {
+    public ContactData(int id, String name, String lastName, String nickName, String telephone, String email, String group) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -32,12 +32,12 @@ public class ContactData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(lastName, that.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, name, lastName);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class ContactData {
     }
 
     public ContactData(String name, String lastName, String nickName, String telephone, String email, String group) {
-        this.id = null;
+        this.id = Integer.MAX_VALUE;
         this.name = name;
         this.lastName = lastName;
         this.nickName = nickName;
