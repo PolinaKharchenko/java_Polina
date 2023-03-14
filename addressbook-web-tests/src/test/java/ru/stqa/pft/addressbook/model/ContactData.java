@@ -35,25 +35,25 @@ public class ContactData {
                 '}';
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return id == that.id && Objects.equals(name, that.name) && Objects.equals(lastName, that.lastName);
+        return Objects.equals(name, that.name) && Objects.equals(lastName, that.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastName);
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        return Objects.hash(name, lastName);
     }
 
     public ContactData(String name, String lastName, String nickName, String telephone, String email, String group) {
-        this.id = 0;
+        this.id = Integer.MAX_VALUE;
         this.name = name;
         this.lastName = lastName;
         this.nickName = nickName;

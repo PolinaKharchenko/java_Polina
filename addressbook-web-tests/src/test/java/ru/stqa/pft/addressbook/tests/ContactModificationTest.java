@@ -38,8 +38,10 @@ public class ContactModificationTest extends TestBase{
 
    beforeCont.remove(beforeCont.size() - 1);
    beforeCont.add(contact);
-
-   Assert.assertEquals(new HashSet<Object>(beforeCont), new HashSet<Object>(afterCont));
+      Comparator<? super ContactData> byID = (g1, g2) -> Integer.compare(g1.getId(), g2.getId()) ;
+      beforeCont.sort(byID);
+      afterCont.sort(byID);
+   Assert.assertEquals(beforeCont,afterCont);
   }
 
 }
