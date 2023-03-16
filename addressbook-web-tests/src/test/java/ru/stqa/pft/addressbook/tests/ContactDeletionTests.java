@@ -13,7 +13,7 @@ public class ContactDeletionTests extends TestBase{
   @Test
   public void testContactDeletion() throws Exception {
       app.getNavigationHelper().gotoHome();
-     ContactData contact = new ContactData( "Polinaaa", "Kharchenko", "Dim", "+71111111111", "polly@mail.ru", null);
+      //ContactData contact = new ContactData( "Polinaaa", "Kharchenko", "Dim", "+71111111111", "polly@mail.ru", null);
     if(! app.getContactHelper().isThereAContact()) {
       app.getNavigationHelper().goToGroupPage();
       if(! app.getGroupHelper().isThereAGroup()) {
@@ -35,7 +35,7 @@ public class ContactDeletionTests extends TestBase{
   //  Assert.assertEquals(beforeCont, afterCont);
 
 
-      afterCont.add(contact);
+      beforeCont.remove(beforeCont.size() - 1);
       Comparator<? super ContactData> byID = (g1, g2) -> Integer.compare(g1.getId(), g2.getId()) ;
       beforeCont.sort(byID);
       afterCont.sort(byID);
