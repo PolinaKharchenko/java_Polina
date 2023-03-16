@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.tests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -13,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class ContactCreationTests extends TestBase {
+
 
    @Test
   public void testContactCreation() throws Exception {
