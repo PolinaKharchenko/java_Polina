@@ -1,13 +1,19 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class ContactCreationTests extends TestBase {
 
@@ -15,7 +21,7 @@ public class ContactCreationTests extends TestBase {
     @Test
     public void testContactCreation() throws Exception {
         app.goTo().homePage();
-        Set<ContactData> beforeCont = app.contact().all();
+        Contacts beforeCont = app.contact().all();
 
         app.goTo().groupPage();
         if (!app.group().isThereAGroup()) {
@@ -28,13 +34,10 @@ public class ContactCreationTests extends TestBase {
         app.contact().create(contact, true);
 
         app.goTo().homePage();
-        Set<ContactData> afterCont = app.contact().all();
-        Assert.assertEquals(beforeCont.size(), afterCont.size() - 1);
-
-
-        contact.withId(afterCont.stream().mapToInt((g) ->g.getId()).max().getAsInt());
-        beforeCont.add(contact);
-        Assert.assertEquals(beforeCont, afterCont);
+        Contacts afterCont = app.contact().all();
+        assertThat(beforeCont.size(), equalTo(afterCont.size() - 1));
+        assertThat(afterCont, equalTo(
+                beforeCont.withAdded(contact.withId(afterCont.stream().mapToInt((g) ->g.getId()).max().getAsInt()))));
 
     }
 
