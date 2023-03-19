@@ -16,7 +16,7 @@ public class ContactDeletionTests extends TestBase {
         if (!app.contact().isThereAContact()) {
             app.goTo().groupPage();
             if (!app.group().isThereAGroup()) {
-                app.group().create(new GroupData("test3", "test4", "test5"));
+                app.group().create(new GroupData().withName("test3").withHeader("test4").withFooter("test5"));
             }
             String a = app.contact().text();
             app.goTo().gotoNewContact();
@@ -36,14 +36,6 @@ public class ContactDeletionTests extends TestBase {
         beforeCont.remove(index);
         Assert.assertEquals(beforeCont, afterCont);
 
-
-        // beforeCont.remove(beforeCont.size() - 1);
-        //  Comparator<? super ContactData> byID = (g1, g2) -> Integer.compare(g1.getId(), g2.getId()) ;
-        // beforeCont.sort(byID);
-        // afterCont.sort(byID);
-        // Assert.assertEquals(beforeCont,afterCont);
     }
-
-
 
 }

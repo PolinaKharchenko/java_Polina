@@ -18,7 +18,7 @@ public class ContactCreationTests extends TestBase {
 
         app.goTo().groupPage();
         if (!app.group().isThereAGroup()) {
-            app.group().create(new GroupData("test3", "test4", "test5"));
+            app.group().create(new GroupData().withName("test3").withHeader("test4").withFooter("test5"));
         }
         String a = app.contact().text();
         app.goTo().gotoNewContact();

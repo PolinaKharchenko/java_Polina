@@ -17,7 +17,7 @@ public class ContactModificationTest extends TestBase {
         if (!app.contact().isThereAContact()) {
             app.goTo().groupPage();
             if (app.group().list().size() == 0) {
-                app.group().create(new GroupData("test3", "test4", "test5"));
+                app.group().create(new GroupData().withName("test3").withHeader("test4").withFooter("test5"));
             }
             String a = app.contact().text();
             app.goTo().gotoNewContact();
