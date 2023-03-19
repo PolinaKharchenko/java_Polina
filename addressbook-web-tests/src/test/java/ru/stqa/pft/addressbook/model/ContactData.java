@@ -22,8 +22,8 @@ public class ContactData {
     }
 
     public ContactData withId(int id) {
-     this.id = id;
-     return this;
+        this.id = id;
+        return this;
     }
 
     public ContactData withName(String name) {
@@ -56,12 +56,30 @@ public class ContactData {
         return this;
     }
 
-    public String getName() { return name; }
-    public String getLastName() { return lastName; }
-    public String getNickName() { return nickName; }
-    public String getTelephone() { return telephone; }
-    public String getEmail() { return email; }
-    public String getGroup() { return group; }
+    public String getName() {
+        return name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
     public int getId() {
         return id;
     }

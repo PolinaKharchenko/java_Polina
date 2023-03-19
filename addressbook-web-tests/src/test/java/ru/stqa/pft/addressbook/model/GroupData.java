@@ -21,15 +21,18 @@ public class GroupData {
         return Objects.hash(id, name);
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
-    public String getHeader(){
+
+    public String getHeader() {
         return header;
     }
-    public String getFooter(){
+
+    public String getFooter() {
         return footer;
     }
+
     public int getId() {
         return id;
     }
@@ -39,6 +42,7 @@ public class GroupData {
         this.id = id;
         return this;
     }
+
     public GroupData withName(String name) {
         this.name = name;
         return this;
