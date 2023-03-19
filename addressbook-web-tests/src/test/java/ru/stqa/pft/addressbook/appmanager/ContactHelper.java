@@ -38,17 +38,11 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home"));
     }
 
-    public void modify(int index, ContactData contact) {
-        selectElement(index);
-        initContactModification(index);
+    public void modify(ContactData contact) {
+        selectElementById(contact.getId());
+        initContactModification();
         create(contact, false);
         submitContactModification();
-        returnToHomePage();
-    }
-
-    public void delete(int index) {
-        selectElement(index);
-        deleteCreateContact();
         returnToHomePage();
     }
 
@@ -58,23 +52,18 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
-
     public void deleteCreateContact() {
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();
         wd.findElements(By.cssSelector("div.msgbox"));
     }
 
-
-    public void selectElement(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
-    }
     public void selectElementById(int id) {
         wd.findElement(By.cssSelector("input[value ='" + id + "']")).click();
     }
 
-    public void initContactModification(int i) {
-        wd.findElements(By.xpath("//img[@alt='Edit']")).get(i).click();
+    public void initContactModification() {
+        click(By.xpath("//img[@alt='Edit']"));
     }
 
     public void submitContactModification() {
@@ -95,20 +84,7 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<ContactData> list() {
-        List<ContactData> contacts = new ArrayList<ContactData>();
-        List<WebElement> elements = wd.findElements(By.name("entry"));
-        for (WebElement element : elements) {
-            String lastName = String.valueOf(element.findElement(By.xpath(".//td[2]")).getText());
-            String firstName = String.valueOf(element.findElement(By.xpath(".//td[3]")).getText());
-            Integer id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            //System.out.println(id);
-            contacts.add(new ContactData().withId(id).withName(firstName).withLastName(lastName));
-        }
-        return contacts;
-    }
-
-    public Set<ContactData> all() {
+      public Set<ContactData> all() {
         Set<ContactData> contacts = new HashSet<ContactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
