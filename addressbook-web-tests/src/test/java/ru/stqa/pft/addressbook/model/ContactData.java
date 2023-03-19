@@ -5,27 +5,13 @@ import java.util.Objects;
 
 public class ContactData {
 
-    private int id;
-    private final String name;
-    private final String lastName;
-    private final String nickName;
-    private final String telephone;
-    private final String email;
+    private int id = Integer.MAX_VALUE;
+    private String name;
+    private String lastName;
+    private String nickName;
+    private String telephone;
+    private String email;
     private String group;
-
- public int getId() {
-       return id;
-  }
-
-    public ContactData(int id, String name, String lastName, String nickName, String telephone, String email, String group) {
-        this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-        this.nickName = nickName;
-        this.telephone = telephone;
-        this.email = email;
-        this.group = group;
-    }
 
     @Override
     public String toString() {
@@ -35,8 +21,49 @@ public class ContactData {
                 '}';
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public ContactData withId(int id) {
+     this.id = id;
+     return this;
+    }
+
+    public ContactData withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public ContactData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public ContactData withNickName(String nickName) {
+        this.nickName = nickName;
+        return this;
+    }
+
+    public ContactData withTelephone(String telephone) {
+        this.telephone = telephone;
+        return this;
+    }
+
+    public ContactData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
+    }
+
+    public String getName() { return name; }
+    public String getLastName() { return lastName; }
+    public String getNickName() { return nickName; }
+    public String getTelephone() { return telephone; }
+    public String getEmail() { return email; }
+    public String getGroup() { return group; }
+    public int getId() {
+        return id;
     }
 
     @Override
@@ -52,19 +79,4 @@ public class ContactData {
         return Objects.hash(name, lastName);
     }
 
-    public ContactData(String name, String lastName, String nickName, String telephone, String email, String group) {
-        this.id = Integer.MAX_VALUE;
-        this.name = name;
-        this.lastName = lastName;
-        this.nickName = nickName;
-        this.telephone = telephone;
-        this.email = email;
-        this.group = group;
-    }
-    public String getName() { return name; }
-    public String getLastName() { return lastName; }
-    public String getNickName() { return nickName; }
-    public String getTelephone() { return telephone; }
-    public String getEmail() { return email; }
-    public String getGroup() { return group; }
 }

@@ -22,7 +22,8 @@ public class ContactCreationTests extends TestBase {
         }
         String a = app.contact().text();
         app.goTo().gotoNewContact();
-        ContactData contact = new ContactData("Polinaaa", "Kharchenko", "Polly", "+71111111111", "polly@mail.ru", a);
+        ContactData contact = new ContactData()
+                .withName("Polinaaa").withLastName("Kharchenko").withNickName("Polly").withTelephone("+71111111111").withEmail("polly@mail.ru").withGroup(a);
         app.contact().create(contact, true);
 
         app.goTo().homePage();
