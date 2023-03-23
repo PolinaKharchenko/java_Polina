@@ -8,6 +8,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.io.File;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -29,6 +30,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("address"), contactData.getAddress());
         type(By.name("email2"), contactData.getEmail2());
         type(By.name("email3"), contactData.getEmail3());
+        attach(By.name("photo"),contactData.getPhoto());
         //type(By.name("group"), contactData.getGroup());
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
@@ -125,6 +127,7 @@ public class ContactHelper extends HelperBase {
           String email = wd.findElement(By.name("email")).getAttribute("value");
           String email2 = wd.findElement(By.name("email2")).getAttribute("value");
           String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+       //   File photo = new File(wd.findElement(By.name("photo")).getAttribute("value"));
           wd.navigate().back();
           return new ContactData().withId(contact.getId()).withName(firstname).withLastName(lastname)
                   .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withAddress(address)
