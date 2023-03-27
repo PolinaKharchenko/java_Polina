@@ -1,0 +1,50 @@
+<list>
+  <contact>
+    <name>name 0</name>
+    <lastName>lastname
+0</lastName>
+    <nickName>nickname
+0</nickName>
+    <group>test 1</group>
+    <address>address
+0</address>
+    <email>email
+0</email>
+  </contact>
+  <contact>
+    <name>name 1</name>
+    <lastName>lastname
+1</lastName>
+    <nickName>nickname
+1</nickName>
+    <group>test 1</group>
+    <address>address
+1</address>
+    <email>email
+1</email>
+  </contact>
+  <contact>
+    <name>name 2</name>
+    <lastName>lastname
+2</lastName>
+    <nickName>nickname
+2</nickName>
+    <group>test 1</group>
+    <address>address
+2</address>
+    <email>email
+2</email>
+  </contact>
+  <contact>
+    <name>name 3</name>
+    <lastName>lastname
+3</lastName>
+    <nickName>nickname
+3</nickName>
+    <group>test 1</group>
+    <address>address
+3</address>
+    <email>email
+3</email>
+  </contact>
+</list>
