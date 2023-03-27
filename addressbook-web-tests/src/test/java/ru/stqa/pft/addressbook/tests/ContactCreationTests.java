@@ -38,6 +38,9 @@ public class ContactCreationTests extends TestBase {
         }
         String a = app.contact().text();
         app.goTo().gotoNewContact();
+
+
+        
         File photo = new File("src/test/resources/1.jpg");
        // ContactData contact = new ContactData()
          //       .withName("Polinaaa").withLastName("Kharchenko").withNickName("Polly").withMobilePhone("+71111111111").withEmail("polly@mail.ru").withPhoto(photo).withGroup(a);
