@@ -1,20 +1,35 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.openqa.selenium.By;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
 public class ContactCreationTests extends TestBase {
 
+    @DataProvider
+    public Iterator<Object[]> validContacts(){
+        List<Object[]> list = new ArrayList<>();
+        //String a = app.wd.findElement(By.className("group")).getText();
+        list.add(new Object[] {new ContactData().withName("Polina1").withLastName("Kharchenko").withNickName("Polly").withMobilePhone("+71111111111").withEmail("polly@mail.ru").withGroup("test1")});
+        list.add(new Object[] {new ContactData().withName("Polina2").withLastName("Kharchenko").withNickName("Polly2").withMobilePhone("333").withEmail("polly@mail.ru").withGroup("test1")});
+        list.add(new Object[] {new ContactData().withName("Polina3").withLastName("Kharchenko").withNickName("Polly3").withMobilePhone("444").withEmail("polly@mail.ru").withGroup("test1")});
+        return list.iterator();
+    }
 
-    @Test
-    public void testContactCreation() throws Exception {
+
+    @Test(dataProvider = "validContacts")
+    public void testContactCreation(ContactData contact)  {
         app.goTo().homePage();
         Contacts beforeCont = app.contact().all();
         app.goTo().groupPage();
@@ -24,8 +39,8 @@ public class ContactCreationTests extends TestBase {
         String a = app.contact().text();
         app.goTo().gotoNewContact();
         File photo = new File("src/test/resources/1.jpg");
-        ContactData contact = new ContactData()
-                .withName("Polinaaa").withLastName("Kharchenko").withNickName("Polly").withMobilePhone("+71111111111").withEmail("polly@mail.ru").withPhoto(photo).withGroup(a);
+       // ContactData contact = new ContactData()
+         //       .withName("Polinaaa").withLastName("Kharchenko").withNickName("Polly").withMobilePhone("+71111111111").withEmail("polly@mail.ru").withPhoto(photo).withGroup(a);
         app.contact().create(contact, true);
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(beforeCont.size() + 1));
