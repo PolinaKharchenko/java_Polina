@@ -7,7 +7,7 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,17 +18,25 @@ import static org.hamcrest.MatcherAssert.*;
 public class ContactCreationTests extends TestBase {
 
     @DataProvider
-    public Iterator<Object[]> validContacts(){
+    public Iterator<Object[]> validContacts() throws IOException {
         List<Object[]> list = new ArrayList<>();
+
         app.goTo().groupPage();
         String groupName = "test1";
         if (!app.group().isThereAGroup(groupName)) {
             app.group().create(new GroupData().withName(groupName).withHeader("test4").withFooter("test5"));
         }
+
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.csv")));
+        String line = reader.readLine();
+        while(line != null){
+            String[] split = line.split(";");
+            list.add(new Object[]{new ContactData().withName(split[0]).withLastName(split[1]).withNickName(split[2]).withAddress(split[3]).withEmail(split[4]).withGroup(groupName)});
+            line = reader.readLine();
+        }
+
         //String a = app.wd.findElement(By.className("group")).getText();
-        list.add(new Object[] {new ContactData().withName("Polina1").withLastName("Kharchenko").withNickName("Polly").withMobilePhone("+71111111111").withEmail("polly@mail.ru").withGroup(groupName)});
-        list.add(new Object[] {new ContactData().withName("Polina2").withLastName("Kharchenko").withNickName("Polly2").withMobilePhone("333").withEmail("polly@mail.ru").withGroup(groupName)});
-        list.add(new Object[] {new ContactData().withName("Polina3").withLastName("Kharchenko").withNickName("Polly3").withMobilePhone("444").withEmail("polly@mail.ru").withGroup(groupName)});
+        // list.add(new Object[] {new ContactData().withName("Polina3").withLastName("Kharchenko").withNickName("Polly3").withMobilePhone("444").withEmail("polly@mail.ru").withGroup(groupName)});
         return list.iterator();
     }
 
