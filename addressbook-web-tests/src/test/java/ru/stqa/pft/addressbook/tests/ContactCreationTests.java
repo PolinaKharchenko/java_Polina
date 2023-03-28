@@ -28,7 +28,7 @@ public class ContactCreationTests extends TestBase {
             app.group().create(new GroupData().withName(groupName).withHeader("test4").withFooter("test5"));
         }
 
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
+        try(BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")))){
         String xml = "";
         String line = reader.readLine();
         while (line != null) {
@@ -41,7 +41,7 @@ public class ContactCreationTests extends TestBase {
         xstream.processAnnotations(ContactData.class);
         xstream.allowTypes(new Class[]{ContactData.class});
         List<ContactData> groups = (List<ContactData>) xstream.fromXML(xml);
-        return groups.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
+        return groups.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();}
         // list.add(new Object[] {new ContactData().withName("Polina3").withLastName("Kharchenko").withNickName("Polly3").withMobilePhone("444").withEmail("polly@mail.ru").withGroup(groupName)});
         // return list.iterator();
     }
