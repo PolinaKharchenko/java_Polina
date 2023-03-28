@@ -47,7 +47,7 @@ public class ContactHelper extends HelperBase {
 
     public void modify(ContactData contact) {
         selectElementById(contact.getId());
-        initContactModification();
+        initContactModificationByID(contact.getId());
         create(contact, false);
         submitContactModification();
         contactCache = null;
