@@ -3,10 +3,10 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 import java.util.Objects;
@@ -24,11 +24,11 @@ public class GroupData {
     private String name;
     @Expose
     @Column(name = "group_header")
-  //  @Type(type = "text")
+    @Type(type = "text")
     private String header;
     @Expose
     @Column(name = "group_footer")
- //   @Type(type = "text")
+    @Type(type = "text")
     private String footer;
 
     @Override
