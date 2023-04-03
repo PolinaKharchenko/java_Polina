@@ -50,7 +50,7 @@ public class ContactCreationTests extends TestBase {
     @Test(dataProvider = "validContacts")
     public void testContactCreation(ContactData contact) {
         app.goTo().homePage();
-        Contacts beforeCont = app.contact().all();
+        Contacts beforeCont = app.db().contacts();
         //  app.goTo().groupPage();
         //  if (!app.group().isThereAGroup()) {
         //      app.group().create(new GroupData().withName("test3").withHeader("test4").withFooter("test5"));
@@ -63,7 +63,7 @@ public class ContactCreationTests extends TestBase {
         app.contact().create(contact, true);
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(beforeCont.size() + 1));
-        Contacts afterCont = app.contact().all();
+        Contacts afterCont = app.db().contacts();
         assertThat(afterCont, equalTo(
                 beforeCont.withAdded(contact.withId(afterCont.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
@@ -80,7 +80,7 @@ public class ContactCreationTests extends TestBase {
     @Test
     public void testBadContactCreation() throws Exception {
         app.goTo().homePage();
-        Contacts beforeCont = app.contact().all();
+        Contacts beforeCont = app.db().contacts();
         app.goTo().groupPage();
         if (!app.group().isThereAGroup()) {
             app.group().create(new GroupData().withName("test3").withHeader("test4").withFooter("test5"));
@@ -92,7 +92,7 @@ public class ContactCreationTests extends TestBase {
         app.contact().create(contact, true);
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(beforeCont.size()));
-        Contacts afterCont = app.contact().all();
+        Contacts afterCont = app.db().contacts();
         assertThat(afterCont, equalTo(beforeCont));
     }
 }

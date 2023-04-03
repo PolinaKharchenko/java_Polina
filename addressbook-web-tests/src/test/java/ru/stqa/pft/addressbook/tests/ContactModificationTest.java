@@ -24,7 +24,7 @@ public class ContactModificationTest extends TestBase {
         app.goTo().homePage();
         if (!app.contact().isThereAContact()) {
             app.goTo().groupPage();
-            if (app.group().all().size() == 0) {
+            if (app.db().groups().size() == 0) {
                 app.group().create(new GroupData().withName("test3").withHeader("test4").withFooter("test5"));
             }
             String a = app.contact().text();
@@ -38,7 +38,7 @@ public class ContactModificationTest extends TestBase {
 
     public void testContactModification() {
         app.goTo().homePage();
-        Contacts beforeCont = app.contact().all();
+        Contacts beforeCont = app.db().contacts();
         ContactData modifiedContact = beforeCont.iterator().next();
         ContactData contact = new ContactData()
                 .withId(modifiedContact.getId())
@@ -46,14 +46,15 @@ public class ContactModificationTest extends TestBase {
                 .withLastName("Kharchenko")
                 .withNickName("Dim")
                 .withMobilePhone("111")
-                .withHomePhone("222")
+                .withHomePhone(null)
                 .withWorkPhone("333")
                 .withEmail("polly@mail.ru")
                 .withAddress("USA");
+        app.goTo().homePage();
         app.contact().modify(contact);
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(beforeCont.size()));
-        Contacts afterCont = app.contact().all();
+        Contacts afterCont = app.db().contacts();
         assertThat(afterCont, equalTo(beforeCont.withhout(modifiedContact).withAdded(contact)));
     }
 }
