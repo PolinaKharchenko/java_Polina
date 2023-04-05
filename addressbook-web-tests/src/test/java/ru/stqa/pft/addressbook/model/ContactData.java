@@ -5,10 +5,14 @@ package ru.stqa.pft.addressbook.model;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
+import org.hibernate.sql.Select;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
 @Entity
 @Table(name = "addressbook")
 @XStreamAlias("contact")
@@ -23,15 +27,6 @@ public class ContactData {
     @Column(name = "lastname")
     private String lastName;
 
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
-
     private String nickName;
     @Column(name = "home")
     @Type(type = "text")
@@ -42,8 +37,7 @@ public class ContactData {
     @Column(name = "work")
     @Type(type = "text")
     private String workPhone;
-    @Transient
-    private String group;
+
     @Transient
     private String address;
     @Transient
@@ -56,6 +50,10 @@ public class ContactData {
     private String email3;
     @Transient
     private String email;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable (name = "address_in_groups",
+            joinColumns = @JoinColumn(name= "id"),inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
     @Column(name="photo")
     @Type(type = "text")
     private String photo;
@@ -143,11 +141,7 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withGroup(String group) {
-        this.group = group;
-        return this;
-    }
-    public ContactData withHomePhone(String homePhone) {
+     public ContactData withHomePhone(String homePhone) {
         this.homePhone = homePhone;
         return this;
     }
@@ -191,8 +185,8 @@ public class ContactData {
         return email;
     }
 
-    public String getGroup() {
-        return group;
+    public Groups getGroups() {
+        return new Groups(groups);
     }
 
     public int getId() {
@@ -210,5 +204,31 @@ public class ContactData {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, lastName);
+    }
+
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", homePhone='" + homePhone + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", workPhone='" + workPhone + '\'' +
+                ", address='" + address + '\'' +
+                ", allPhones='" + allPhones + '\'' +
+                ", allEmails='" + allEmails + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
+                ", email='" + email + '\'' +
+                ", groups=" + groups +
+                ", photo='" + photo + '\'' +
+                '}';
     }
 }

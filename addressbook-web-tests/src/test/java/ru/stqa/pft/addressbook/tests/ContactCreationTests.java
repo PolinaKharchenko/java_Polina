@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -50,14 +51,8 @@ public class ContactCreationTests extends TestBase {
     @Test(dataProvider = "validContacts")
     public void testContactCreation(ContactData contact) {
         app.goTo().homePage();
+        Groups groups = app.db().groups();
         Contacts beforeCont = app.db().contacts();
-        //  app.goTo().groupPage();
-        //  if (!app.group().isThereAGroup()) {
-        //      app.group().create(new GroupData().withName("test3").withHeader("test4").withFooter("test5"));
-        //  }
-        //  String a = app.contact().text();
-        // ContactData contact = new ContactData()
-        //       .withName("Polinaaa").withLastName("Kharchenko").withNickName("Polly").withMobilePhone("+71111111111").withEmail("polly@mail.ru").withPhoto(photo).withGroup(a);
         app.goTo().gotoNewContact();
         File photo = new File("src/test/resources/1.jpg");
         app.contact().create(contact, true);
@@ -80,7 +75,11 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     public void testBadContactCreation() throws Exception {
-        app.goTo().homePage();
+        Groups groups = app.db().groups();
+        File photo = new File("src/test/resources/1.jpg");
+        ContactData newContact = new ContactData().withName("Polinaaa'").withLastName("Kharchenko").withNickName("Polly").withMobilePhone("+71111111111").withEmail("polly@mail.ru").withPhoto(photo).inGroup(groups.iterator().next());
+
+    app.goTo().homePage();
         Contacts beforeCont = app.db().contacts();
         app.goTo().groupPage();
         if (!app.group().isThereAGroup()) {
@@ -88,9 +87,7 @@ public class ContactCreationTests extends TestBase {
         }
         String a = app.contact().text();
         app.goTo().gotoNewContact();
-        ContactData contact = new ContactData()
-                .withName("Polinaaa'").withLastName("Kharchenko").withNickName("Polly").withMobilePhone("+71111111111").withEmail("polly@mail.ru").withGroup(a);
-        app.contact().create(contact, true);
+        app.contact().create(newContact, true);
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(beforeCont.size()));
         Contacts afterCont = app.db().contacts();

@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.List;
 import java.util.Set;
@@ -28,8 +29,9 @@ public class ContactDeletionTests extends TestBase {
             }
             String a = app.contact().text();
             app.goTo().gotoNewContact();
+            Groups groups = app.db().groups();
             app.contact().create(new ContactData()
-                    .withName("Polina").withLastName("Kharchenko").withNickName("Polly").withMobilePhone("+71111111111").withEmail("polly@mail.ru").withGroup(a), true);
+                    .withName("Polina").withLastName("Kharchenko").withNickName("Polly").withMobilePhone("+71111111111").withEmail("polly@mail.ru").inGroup(groups.iterator().next()), true);
         }
 
     }

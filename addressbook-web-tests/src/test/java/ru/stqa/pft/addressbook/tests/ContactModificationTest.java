@@ -29,8 +29,9 @@ public class ContactModificationTest extends TestBase {
             }
             String a = app.contact().text();
             app.goTo().gotoNewContact();
+            Groups groups = app.db().groups();
             app.contact().create(new ContactData()
-                    .withName("Polina").withLastName("Kharchenko").withNickName("Polly").withMobilePhone("+71111111111").withAddress("drezden").withEmail("polly@mail.ru").withGroup(a), true);
+                    .withName("Polina").withLastName("Kharchenko").withNickName("Polly").withMobilePhone("+71111111111").withAddress("drezden").withEmail("polly@mail.ru").inGroup(groups.iterator().next()), true);
         }
     }
 
