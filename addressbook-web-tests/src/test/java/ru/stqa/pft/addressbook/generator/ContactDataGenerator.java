@@ -65,8 +65,8 @@ public class ContactDataGenerator {
         List<ContactData> contacts  = new ArrayList<ContactData>();
         for (int i = 0; i< count; i++){
             contacts.add(new ContactData().withName(String.format("name %s", i))
-                    .withLastName(String.format("lastname\n%s", i)). withNickName(String.format("nickname\n%s", i))
-                    .withAddress(String.format("address\n%s", i)).withEmail(String.format("email\n%s",i)).withGroup(String.format("test 1")));
+                    .withLastName(String.format("lastname%s", i)). withNickName(String.format("nickname%s", i))
+                    .withAddress(String.format("address%s", i)).withEmail(String.format("email%s",i)).withGroup(String.format("test 1")));
         }
 
         return contacts;

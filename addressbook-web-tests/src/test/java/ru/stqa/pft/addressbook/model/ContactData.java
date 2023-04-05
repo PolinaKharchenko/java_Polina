@@ -66,8 +66,11 @@ public class ContactData {
     }
 
     public File getPhoto() {
+        if (photo==null){
+            return null;
+        }else {
         return new File(photo);
-    }
+    }}
 
     public ContactData withAllPhones(String allPhones) {
         this.allPhones = allPhones;
