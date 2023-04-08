@@ -144,5 +144,26 @@ public class ContactHelper extends HelperBase {
 
     }
 
+    public void toGroupList(){
+    click(By.name("to_group"));
+    }
 
+    public void addToGroup(){
+    click(By.name("add"));
+        }
+
+    public void selectGroup(int i) {
+    new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(i));
+    }
+
+    public void selectGroupFromList(int i) {
+        new Select(wd.findElement(By.name("group"))).selectByValue(String.valueOf(i));
+    }
+
+    public void selectContactById(int id) {
+        wd.findElement(By.id(String.format("%s", id))).click();}
+
+    public void deleteContactFromGroup() {
+        wd.findElement(By.name("remove")).click();
+    }
 }

@@ -3,16 +3,16 @@
     <name>name 0</name>
     <lastName>lastname0</lastName>
     <nickName>nickname0</nickName>
-    <group>test 1</group>
     <address>address0</address>
     <email>email0</email>
+    <groups/>
   </contact>
   <contact>
     <name>name 1</name>
     <lastName>lastname1</lastName>
     <nickName>nickname1</nickName>
-    <group>test 1</group>
     <address>address1</address>
     <email>email1</email>
+    <groups/>
   </contact>
 </list>
