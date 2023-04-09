@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
+import org.testng.junit.JUnit4TestRunner;
 
 import java.io.File;
 import java.io.FileReader;
@@ -16,8 +17,11 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
     private final Properties properties;
     private WebDriver wd;
-   private String browser;
-   public ApplicationManager (String browser){
+    private String browser;
+    private RegistrationHelper registrationHelper;
+    private FtpHelper ftp;
+
+    public ApplicationManager (String browser){
     this.browser = browser;
     properties = new Properties();
   }
@@ -26,20 +30,11 @@ public class ApplicationManager {
       String target = System.getProperty("target", "local");
       properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
-    if (Objects.equals(browser, BrowserType.FIREFOX)){
-    wd = new FirefoxDriver();}
-    else if (Objects.equals(browser, BrowserType.CHROME)) {
-      wd = new ChromeDriver();
-    }
-    else if ( Objects.equals(browser, BrowserType.IE)){
-      wd = new InternetExplorerDriver();
-    }
-    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-    wd.get(properties.getProperty("web.baseUrl"));
       }
 
   public void stop() {
-    wd.quit();
+       if(wd != null){
+       wd.quit();}
   }
 
   public HttpSession newSession() {
@@ -48,5 +43,33 @@ public class ApplicationManager {
 
     public String getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    public RegistrationHelper registration() {
+        if(registrationHelper == null){
+   registrationHelper = new RegistrationHelper(this);}
+        return registrationHelper;
+   }
+
+   public FtpHelper ftp(){
+        if (ftp == null){
+        ftp = new FtpHelper(this);
+   }
+    return ftp;
+    }
+    public WebDriver getDriver() {
+       if(wd == null){
+           if (Objects.equals(browser, BrowserType.FIREFOX)){
+               wd = new FirefoxDriver();}
+           else if (Objects.equals(browser, BrowserType.CHROME)) {
+               wd = new ChromeDriver();
+           }
+           else if ( Objects.equals(browser, BrowserType.IE)){
+               wd = new InternetExplorerDriver();
+           }
+           wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+           wd.get(properties.getProperty("web.baseUrl"));
+       }
+       return wd;
     }
 }
