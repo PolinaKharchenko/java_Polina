@@ -81,7 +81,7 @@ public class JamesHelper {
         write(password);
 
         //read welcome message
-        readUntil("Welcome " + login + " . Help for a list of commands");    }
+        readUntil("Welcome " + login + ". HELP for a list of commands");    }
 
     private String readUntil(String pattern){
         try{
@@ -138,11 +138,11 @@ store.close();
         return folder;
     }
 
-    public List<MailMessage> waitForMail(String username,String password, long timeout)throws MessagingException{
+    public List<MailMessage> waitForMail(String username, String password, long timeout)throws MessagingException{
         long now = System.currentTimeMillis();
         while (System.currentTimeMillis() < now + timeout) {
-            List<MailMessage> allMail = getAllMail(username,password);
-                    if(allMail.size()>0){
+            List<MailMessage> allMail = getAllMail(username, password);
+                    if(allMail.size() > 0){
                         return allMail;
                     }
                     try{
