@@ -1,5 +1,6 @@
 package ru.stqa.pft.mantis.appmanager;
 
+import org.apache.http.client.methods.HttpPost;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.stqa.pft.mantis.model.User;
@@ -10,15 +11,16 @@ import java.util.List;
 
 
 public class PasswordHelper extends HelperBase {
-    protected WebDriver wd;
-    protected ApplicationManager app;
+   // protected WebDriver wd;
+   // protected ApplicationManager app;
 
     public PasswordHelper(ApplicationManager app) {
         super(app);
     }
 
     public void autorizationByAdmin(){
-        wd.get(app.getProperty("web.baseUrl")+"/login_page.php" );
+
+        wd.get(app.getProperty("web.baseUrl") + "/login_page.php");
         type(By.name("username"), "administrator");
         click(By.xpath("//input[@type='submit']"));
         type(By.name("password"), "root");
@@ -39,7 +41,7 @@ public class PasswordHelper extends HelperBase {
         Connection conn = null;
         List<User> user = new ArrayList<User>();
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bugtracker?user=root&password=");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bugtracker?user=user1&password=");
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("select id, username, email, password from mantis_user_table");
             //User user = new User();
@@ -58,6 +60,10 @@ public class PasswordHelper extends HelperBase {
             System.out.println("VendorError: " + ex.getErrorCode());
         }
         return user;
+    }
+    public void getPassword(){
+        click(By.linkText("Управление"));
+        click(By.linkText("Управление пользователями"));
     }
 
     }

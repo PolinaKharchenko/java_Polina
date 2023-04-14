@@ -92,6 +92,6 @@ public class ApplicationManager {
          if (passwordHelper == null) {
             passwordHelper = new PasswordHelper(this);
         }
-        return passwordHelper();
+        return passwordHelper;
     }
 }

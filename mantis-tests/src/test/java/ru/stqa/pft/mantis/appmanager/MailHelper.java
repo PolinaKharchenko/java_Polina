@@ -22,11 +22,12 @@ public class MailHelper {
         wiser = new Wiser();
     }
 
-    public List<MailMessage> waitForMail(int count, long timeout) throws MessagingException, IOException {
+    public MailMessage waitForMail(int count, long timeout,String email) throws MessagingException, IOException {
         long start = System.currentTimeMillis();
         while (System.currentTimeMillis() > start + timeout) {
             if (wiser.getMessages().size() >= count) {
-                return wiser.getMessages().stream().map((m) -> toModelMail(m)).collect(Collectors.toList());
+                List<MailMessage> mailMessages= wiser.getMessages().stream().map((m) -> toModelMail(m)).collect(Collectors.toList());
+                return (MailMessage) mailMessages.stream().filter((m)->m.to.equals(email)).findFirst().get();
             }
             try {
                 Thread.sleep(1000);
