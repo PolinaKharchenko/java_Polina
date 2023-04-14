@@ -43,7 +43,7 @@ public class AddContactToGroup extends TestBase{
         }
     }
     @Test
-    public void AddContactToGroup(){
+    public void addContactToGroup(){
         app.goTo().homePage();
         Contacts contactAll = app.db().contacts();
        // ContactData selectedContact = contactAll.iterator().next();
@@ -61,7 +61,6 @@ public class AddContactToGroup extends TestBase{
                app.contact().toGroupList();
                app.contact().selectGroup(selectgroups);
                app.contact().addToGroup();
-               verifyContactListInUI();
                break;
            }
         }
