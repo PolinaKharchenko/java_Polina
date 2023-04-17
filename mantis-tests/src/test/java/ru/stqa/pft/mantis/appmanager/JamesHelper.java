@@ -143,7 +143,7 @@ store.close();
         while (System.currentTimeMillis() < now + timeout) {
             List<MailMessage> allMail = getAllMail(username, password);
                     if(allMail.size() > 0){
-                        return allMail;
+                       return allMail;
                     }
                     try{
                         Thread.sleep(1000);

@@ -28,8 +28,9 @@ public class PasswordHelper extends HelperBase {
     }
 
     public void changePassword(String username){
-        click(By.linkText(username));
+        click(By.xpath("//*[.='user1']"));
         click(By.cssSelector("input[value='Сбросить пароль']"));
+
     }
 
     public void goToUserManagement(){
@@ -41,7 +42,7 @@ public class PasswordHelper extends HelperBase {
         Connection conn = null;
         List<User> user = new ArrayList<User>();
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bugtracker?user=user1&password=");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bugtracker?user=root&password=");
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("select id, username, email, password from mantis_user_table");
             //User user = new User();
