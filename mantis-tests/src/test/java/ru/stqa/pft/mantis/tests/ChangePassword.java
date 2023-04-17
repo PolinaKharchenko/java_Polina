@@ -31,10 +31,10 @@ public class ChangePassword extends TestBase {
         String email = String.format("user1@localhost.localdomain");
         app.passwordHelper().changePassword(user);
 
-        List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+        List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
         String confirmationLink = findConfirmationLink(mailMessages, email);
         app.registration().finish(confirmationLink, password);
-
+        assertTrue(app.newSession().login(user,password));
     }
 
     private String findConfirmationLink(List<MailMessage> mailMessages, String email) {

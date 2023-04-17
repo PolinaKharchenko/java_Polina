@@ -1,0 +1,32 @@
+apply plugin: 'java'
+
+buildscript{
+    repositories{
+      gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'com.yupzip:wsdl2java:2.3.2'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'com.yupzip.wsdl2java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies{
+    implementation 'org.testng:testng:7.6.1'
+}
+
+
+wsdl2java {
+
+    wsdlDir = file("test/resources") // define to support incremental build
+    wsdlsToGenerate = [   //  2d-array of wsdls and cxf-parameters
+                          ["$projectDir/test/resources/geoipservice.wsdl"]
+
+    ]
+
+}
