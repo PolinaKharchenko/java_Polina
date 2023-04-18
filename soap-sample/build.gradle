@@ -18,14 +18,19 @@ repositories {
 
 dependencies{
     implementation 'org.testng:testng:7.6.1'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
+    implementation 'jakarta.xml.ws:jakarta.xml.ws-api:4.0.0'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
+    implementation 'com.sun.xml.ws:jaxws-rt:4.0.1'
+
 }
 
 
 wsdl2java {
 
-    wsdlDir = file("test/resources") // define to support incremental build
+    wsdlDir = file("src/test/resources") // define to support incremental build
     wsdlsToGenerate = [   //  2d-array of wsdls and cxf-parameters
-                          ["$projectDir/test/resources/geoipservice.wsdl"]
+                          ["$projectDir/src/test/resources/geoipservice.wsdl"]
 
     ]
 
