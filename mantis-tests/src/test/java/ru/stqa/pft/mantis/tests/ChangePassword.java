@@ -26,11 +26,12 @@ public class ChangePassword extends TestBase {
     public void ChangePassword() throws MessagingException, IOException {
         app.passwordHelper().autorizationByAdmin();
         app.passwordHelper().goToUserManagement();
-        String user = "user1";
+        List<Integer> id = app.passwordHelper().allUserExpectAdmin();
+        Integer selectedId = id.iterator().next();
+        app.passwordHelper().selectUserById(selectedId);
+        String user = app.passwordHelper().userName(selectedId);
         String password = "password";
-        String email = String.format("user1@localhost.localdomain");
-        app.passwordHelper().changePassword(user);
-
+        String email = app.passwordHelper().emailChangePassword(selectedId);
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
         String confirmationLink = findConfirmationLink(mailMessages, email);
         app.registration().finish(confirmationLink, password);
