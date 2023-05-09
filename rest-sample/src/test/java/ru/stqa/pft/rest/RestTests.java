@@ -51,8 +51,8 @@ public class RestTests extends TestBase {
 
           @Test
     public void getIssueStateName() throws IOException {
-                 skipIfNotFixed(142);
-                 String stateName = getIssueWithId(84).getStateName();
+        skipIfNotFixed(142);
+        String stateName = getIssueWithId(84).getStateName();
                  System.out.println(stateName);
           }
 
