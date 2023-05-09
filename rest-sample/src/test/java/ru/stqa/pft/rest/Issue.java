@@ -6,6 +6,7 @@ public class Issue {
     private int id;
     private String subject;
     private String description;
+    private String stateName;
 
     public Issue withId(int id) {
         this.id = id;
@@ -16,6 +17,10 @@ public class Issue {
         this.subject = subject;
         return this;
     }
+    public Issue withStateName(String stateName) {
+        this.stateName = stateName;
+        return this;
+    }
 
     public Issue withDescription(String description) {
         this.description = description;
@@ -24,6 +29,9 @@ public class Issue {
 
     public int getId() {
         return id;
+    }
+    public String getStateName() {
+        return stateName;
     }
 
     public String getSubject() {
