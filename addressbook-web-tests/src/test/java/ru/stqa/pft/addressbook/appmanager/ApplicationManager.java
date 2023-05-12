@@ -38,7 +38,7 @@ public class ApplicationManager {
       properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
       DesiredCapabilities capabilities = new DesiredCapabilities();
       capabilities.setBrowserName(browser);
-      capabilities.setPlatform(Platform.fromString(System.getProperty("platform", "win7")));
+      capabilities.setPlatform(Platform.fromString(System.getProperty("platform", "win10")));
       dbHelper = new DbHelper();
 
     if("".equals(properties.getProperty("selenium.server"))){
