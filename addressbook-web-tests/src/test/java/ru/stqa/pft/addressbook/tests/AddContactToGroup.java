@@ -46,14 +46,9 @@ public class AddContactToGroup extends TestBase{
     public void addContactToGroup(){
         app.goTo().homePage();
         Contacts contactAll = app.db().contacts();
-       // ContactData selectedContact = contactAll.iterator().next();
-      //  Groups groups = app.db().groups();
-    //   GroupData selectedGroup = groups.iterator().next();
-       // assertThat();
+
 
         for(ContactData contact : contactAll){
-           if(app.contact().contactInGroup(contact) != null)
-           {
                Integer selectgroups = app.contact().contactInGroup(contact);
                if(selectgroups ==0)
                {selectgroups = app.db().groups().iterator().next().getId();}
@@ -62,15 +57,9 @@ public class AddContactToGroup extends TestBase{
                app.contact().selectGroup(selectgroups);
                app.contact().addToGroup();
                break;
-           }
         }
-     /*   app.contact().selectElementById(selectedContact.getId());
-        app.contact().toGroupList();
-        app.contact().selectGroup(selectedGroup.getId());
-        app.contact().addToGroup();*/
+
         verifyContactListInUI();
-
-
 
     }
 
