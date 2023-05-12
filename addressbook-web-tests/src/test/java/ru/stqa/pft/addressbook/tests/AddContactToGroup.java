@@ -47,6 +47,7 @@ public class AddContactToGroup extends TestBase{
         app.goTo().homePage();
         Contacts contactAll = app.db().contacts();
 
+        
 
         for(ContactData contact : contactAll){
                Integer selectgroups = app.contact().contactInGroup(contact);
