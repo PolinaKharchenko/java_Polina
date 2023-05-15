@@ -23,16 +23,19 @@ import java.io.File;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class AddContactToGroup extends TestBase{
+    ContactData contact;
 
 
       @BeforeMethod
     public void ensurePrecondition(){
         app.goTo().homePage();
+          contact =app.db().contacts().iterator().next();
         if (!app.contact().isThereAContact()) {
             app.goTo().groupPage();
-            if (app.db().groups().size() == 0) {
+            if (contact.getGroups().size()>=app.db().groups().size()||app.db().groups().size() == 0) {
                 app.group().create(new GroupData().withName("test3").withHeader("test4").withFooter("test5"));
             }
             String a = app.contact().text();
@@ -45,22 +48,18 @@ public class AddContactToGroup extends TestBase{
     @Test
     public void addContactToGroup(){
         app.goTo().homePage();
-        Contacts contactAll = app.db().contacts();
+        Groups contactGroupsBefore = contact.getGroups();
+        int idGroups = app.contact().addContactInGroup(contact, contactGroupsBefore);
+        GroupData groupToAdd = app.db().group(idGroups);
+        ContactData con = app.db().contact(contact.getId());
+        Groups contactGroupsAfter = con.getGroups();
 
-        
+        assertThat(contactGroupsAfter.size(), equalTo(contactGroupsBefore.size() + 1));
+        assertThat(contactGroupsAfter,equalTo(contactGroupsBefore.withAdded(groupToAdd)));
 
-        for(ContactData contact : contactAll){
-               Integer selectgroups = app.contact().contactInGroup(contact);
-               if(selectgroups ==0)
-               {selectgroups = app.db().groups().iterator().next().getId();}
-               app.contact().selectElementById(contact.getId());
-               app.contact().toGroupList();
-               app.contact().selectGroup(selectgroups);
-               app.contact().addToGroup();
-               break;
-        }
 
-        verifyContactListInUI();
+
+
 
     }
 

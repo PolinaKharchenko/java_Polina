@@ -10,6 +10,7 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.*;
 import java.util.List;
 
@@ -173,62 +174,27 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.name("remove")).click();
     }
 
-    public Integer contactInGroup(ContactData contact) {
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/addressbook?user=root&password=");
-            Statement st = conn.createStatement();
-            int contactId = contact.getId();
-            //   int groupId = group.getId();
-            ResultSet rs = st.executeQuery("select id, group_id  from address_in_groups");
-            //Contacts contacts = new Contacts();
-            Integer[] cont = new Integer[100];
-            Integer[] gr = new Integer[100];
-            int i = 0;
-            //создаем массив id контактов и соответсвующий массив id групп, которые есть в базе
-            while (rs.next()) {
-                gr[i] = rs.getInt("group_id");
-                cont[i] = rs.getInt("id");
-                i++;
-            }
-            //обходим массив контактов и записываем соответсвующие ей группы в массив мас
-            int num = 0;
-            Integer[] mas = new Integer[100];
-            while (num < i) {
-                if (cont[num] == contactId) {
-                    mas[num] = gr[num];
-                } else {
-                    mas[num] = -1;
+
+
+    public int addContactInGroup(ContactData contact, Groups groups){
+        int groupID = 0;
+        List<WebElement> options = wd.findElements(By.xpath("//select[@name='to_group']/option"));
+        selectContactById(contact.getId());
+        click(By.name("to_group"));
+        for(WebElement option:options){
+            boolean isInGroup = false;
+            for(GroupData group:groups){
+                if(Integer.parseInt(option.getAttribute("value"))==group.getId()){
+                    isInGroup=true;
                 }
-                num++;
             }
-
-            //обходим массив групп и смотрим есть gr[i] в мас
-            num = 0;
-            int index = 0;
-            while (num < i) {
-                for (int n = 0; n < i; n++) {
-                    if ((gr[num].intValue() != mas[n].intValue()) && (mas[n]!=-1)) {
-                        index = gr[num];
-                        num = i;
-                        break;
-                    }
-
-                }  num++;
+            if(!isInGroup){
+                groupID = Integer.parseInt(option.getAttribute("value"));
+                new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(option.getText());
+                click(By.name("add"));
+                break;
             }
-            rs.close();
-            st.close();
-            conn.close();
-            //   System.out.println(groups);
-            return index;
-
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
         }
-
-        return null;
+        return groupID;
     }
 }
