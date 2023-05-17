@@ -30,22 +30,26 @@ public class AddContactToGroup extends TestBase{
 
 
       @BeforeMethod
-    public void ensurePrecondition(){
-        app.goTo().homePage();
+      public void ensurePreconditions() {
+          app.goTo().homePage();
           if (!app.contact().isThereAContact()) {
-            app.goTo().groupPage();
-            if (contact.getGroups().size()>=app.db().groups().size()||app.db().groups().size() == 0) {
-                app.group().create(new GroupData().withName("test3").withHeader("test4").withFooter("test5"));
-            }
-
-          //  String a = app.contact().text();
-            app.goTo().gotoNewContact();
-            Groups groups = app.db().groups();
-            app.contact().create(new ContactData()
-                    .withName("Polina").withLastName("Kharchenko").withNickName("Polly").withMobilePhone("+71111111111").withAddress("drezden").withEmail("polly@mail.ru").inGroup(groups.iterator().next()), true);
-        }
+              app.goTo().groupPage();
+              if (!app.group().isThereAGroup()) {
+                  app.group().create(new GroupData().withName("test3").withHeader("test4").withFooter("test5"));
+              }
+              String a = app.contact().text();
+              app.goTo().gotoNewContact();
+              Groups groups = app.db().groups();
+              app.contact().create(new ContactData()
+                      .withName("Polina").withLastName("Kharchenko").withNickName("Polly").withMobilePhone("+71111111111").withEmail("polly@mail.ru").inGroup(groups.iterator().next()), true);
+          }
+          app.goTo().homePage();
           contact =app.db().contacts().iterator().next();
-    }
+          if (contact.getGroups().size()>=app.db().groups().size()) {
+              app.goTo().groupPage();
+              app.group().create(new GroupData().withName("test10").withHeader("test4").withFooter("test5"));
+          }
+      }
     @Test
     public void addContactToGroup(){
         app.goTo().homePage();
